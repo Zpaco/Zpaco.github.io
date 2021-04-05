@@ -1,0 +1,740 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="SQL server," />
+
+
+
+
+  
+
+
+  <link rel="alternate" href="/atom.xml" title="SuPer's blog" type="application/atom+xml" />
+
+
+
+
+
+
+<meta name="description" content="索引分类1.聚集索引和非聚集索引聚集索引会对基本表进行物理排序，所以这种索引对查询非常有效，在每一张基本表中只能有一个聚集索引。当建立主键约束时，如果基本表中没有聚集索引，SQL Server会用主键列作聚集索引键。 非聚集索引不会对基本表进行物理排序。如果表中不存在聚集索引，则基本表中是不排序的。 2.唯一索引和非唯一索引唯一索引确保在被索引的列中，所有数据是唯一的，不包含重复值。如果表具有PR">
+<meta property="og:type" content="article">
+<meta property="og:title" content="索引">
+<meta property="og:url" content="http://example.com/2021/04/05/%E7%B4%A2%E5%BC%95/index.html">
+<meta property="og:site_name" content="SuPer&#39;s blog">
+<meta property="og:description" content="索引分类1.聚集索引和非聚集索引聚集索引会对基本表进行物理排序，所以这种索引对查询非常有效，在每一张基本表中只能有一个聚集索引。当建立主键约束时，如果基本表中没有聚集索引，SQL Server会用主键列作聚集索引键。 非聚集索引不会对基本表进行物理排序。如果表中不存在聚集索引，则基本表中是不排序的。 2.唯一索引和非唯一索引唯一索引确保在被索引的列中，所有数据是唯一的，不包含重复值。如果表具有PR">
+<meta property="og:locale">
+<meta property="article:published_time" content="2021-04-05T10:38:26.000Z">
+<meta property="article:modified_time" content="2021-04-05T10:39:38.707Z">
+<meta property="article:author" content="SuPer">
+<meta property="article:tag" content="SQL server">
+<meta name="twitter:card" content="summary">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '',
+    scheme: 'Pisces',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://example.com/2021/04/05/索引/"/>
+
+
+
+
+
+  <title>索引 | SuPer's blog</title>
+  
+
+
+
+
+
+
+
+
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">SuPer's blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/%20" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/%20" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/%20" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2021/04/05/%E7%B4%A2%E5%BC%95/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="SuPer's blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">索引</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2021-04-05T18:38:26+08:00">
+                2021-04-05
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="索引分类"><a href="#索引分类" class="headerlink" title="索引分类"></a>索引分类</h2><h3 id="1-聚集索引和非聚集索引"><a href="#1-聚集索引和非聚集索引" class="headerlink" title="1.聚集索引和非聚集索引"></a>1.聚集索引和非聚集索引</h3><p>聚集索引会对基本表进行物理排序，所以这种索引对查询非常有效，<strong>在每一张基本表中只能有一个聚集索引</strong>。当建立主键约束时，如果基本表中没有聚集索引，SQL Server会用主键列作聚集索引键。</p>
+<p>非聚集索引不会对基本表进行物理排序。如果表中不存在聚集索引，则基本表中是不排序的。</p>
+<h3 id="2-唯一索引和非唯一索引"><a href="#2-唯一索引和非唯一索引" class="headerlink" title="2.唯一索引和非唯一索引"></a>2.唯一索引和非唯一索引</h3><p>唯一索引确保在被索引的列中，所有数据是唯一的，不包含重复值。如果表具有PRIMARY KEY约束或UNIQUE约束，那么执行CREATE TABLE语句或ALTER TABLE语句时，SQL Server会自动创建唯一索引。</p>
+<p>非唯一索引允许所保存的列中出现重复值，所以在数据操作时，非唯一索引会比唯一索引带来更大的开销。</p>
+<h3 id="3-简单索引和复合索引"><a href="#3-简单索引和复合索引" class="headerlink" title="3.简单索引和复合索引"></a>3.简单索引和复合索引</h3><p>只针对基本表的一列建立的索引，称为简单索引；</p>
+<p>针对多个列(最多为16列)建立的索引成为复合索引或组合索引</p>
+<h2 id="创建索引"><a href="#创建索引" class="headerlink" title="创建索引"></a>创建索引</h2><p>语句格式</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">CREATE</span> [<span class="keyword">UNIQUE</span>][CLUSTERED<span class="operator">|</span>NONCLUSTERED] INDEX <span class="operator">&lt;</span>索引名<span class="operator">&gt;</span></span><br><span class="line"><span class="keyword">ON</span> <span class="operator">&lt;</span>表名或视图名<span class="operator">&gt;</span>(<span class="operator">&lt;</span>列名<span class="operator">&gt;</span>[<span class="keyword">ASC</span><span class="operator">|</span><span class="keyword">DESC</span>][, ... n])</span><br><span class="line">[</span><br><span class="line"><span class="keyword">WITH</span> PAD_INDEX</span><br><span class="line">[[,]FILLFACTOR <span class="operator">=</span> <span class="operator">&lt;</span>填充因子<span class="operator">&gt;</span>]</span><br><span class="line">[,INGORE_DUP_KEY]</span><br><span class="line">[[,DROP_EXISTING]]</span><br><span class="line">... ]</span><br></pre></td></tr></table></figure>
+
+<p>UNIQUE——指定创建的索引为唯一索引，省略则为非唯一索引</p>
+<p>CLUSTERED|NONCLUSTERED——用于指定创建的索引为聚集索引或非聚集索引。省略则默认非聚集索引</p>
+<p>ASC|DESC——用于指定索引列升序或降序，默认ASC</p>
+<p>PAD_INDEX——指定索引填充，取值为ON|OFF，默认OFF。PAD_INDEX选项只用于连接FILLFACTOR</p>
+<p>FILLFACTOR——指定填充因子的大小。使用FILLFACTOR是读与写之间的一个平衡操作；一般的选择：对于数据基本不变化的，将填充因子设置到足够大；对于数据经常变化的，将填充因子设置为足够小</p>
+<p>IGNORE_DUP_KEY——当向唯一聚集索引或非唯一索引中插入重复数据时，用于忽略重复值输入。此子句要与UNIQUE保留字同时使用</p>
+<p>DROP_EXISTING——指定应删除并重新创建同名的先前存在的聚集索引或非聚集索引</p>
+<p>例：为学生名字创建唯一索引</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">USE JXGL</span><br><span class="line"><span class="keyword">CREATE</span> <span class="keyword">UNIQUE</span> INDEX 学生_姓名</span><br><span class="line"><span class="keyword">ON</span> 学生(姓名)</span><br></pre></td></tr></table></figure>
+
+<p>例：为选修课程表中创建复合索引</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">USE JXGL</span><br><span class="line"><span class="keyword">CREATE</span> INDEX I_学号_课程号</span><br><span class="line"><span class="keyword">ON</span> 选修(学号 <span class="keyword">ASC</span>,课程号 <span class="keyword">DESC</span>)</span><br></pre></td></tr></table></figure>
+
+
+
+<h3 id="间接创建索引"><a href="#间接创建索引" class="headerlink" title="间接创建索引"></a>间接创建索引</h3><p>在定义或修改表结构时，如果定义了主键约束(PRIMARY KEY)或唯一性约束(UNIQUE)，那么系统就同时创建了索引</p>
+<p>以此方法创建的索引，完全由系统自动选择和维护</p>
+<h2 id="管理索引"><a href="#管理索引" class="headerlink" title="管理索引"></a>管理索引</h2><h3 id="1-查看索引"><a href="#1-查看索引" class="headerlink" title="1.查看索引"></a>1.查看索引</h3><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">EXEC</span> sp_helpindex <span class="operator">&lt;</span>表名称<span class="operator">&gt;</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="2-修改索引"><a href="#2-修改索引" class="headerlink" title="2.修改索引"></a>2.修改索引</h3><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">EXEP sp_rename <span class="operator">&lt;</span>表名<span class="operator">&gt;</span>.<span class="operator">&lt;</span>旧名称<span class="operator">&gt;</span>,<span class="operator">&lt;</span>新名称<span class="operator">&gt;</span>[,<span class="operator">&lt;</span>对象类型<span class="operator">&gt;</span>]</span><br></pre></td></tr></table></figure>
+
+<h3 id="3-删除索引"><a href="#3-删除索引" class="headerlink" title="3.删除索引"></a>3.删除索引</h3><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">DROP</span> INDEX <span class="operator">&lt;</span>表名<span class="operator">&gt;</span>.<span class="operator">&lt;</span>索引名<span class="operator">&gt;</span>[, ... n]</span><br></pre></td></tr></table></figure>
+
+<h3 id="4-维护索引"><a href="#4-维护索引" class="headerlink" title="4.维护索引"></a>4.维护索引</h3><h4 id="Ⅰ-检查整理索引碎片"><a href="#Ⅰ-检查整理索引碎片" class="headerlink" title="Ⅰ.检查整理索引碎片"></a>Ⅰ.检查整理索引碎片</h4><ul>
+<li><p>检查相关表中有无索引的碎片信息</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">DBCC SHOWCONTIG(<span class="operator">&lt;</span>表名<span class="operator">&gt;</span>)</span><br></pre></td></tr></table></figure></li>
+<li><p>使用DBCC INDEXDEFRAG整理索引碎片。它对索引的页级进行碎片管理，以便使页的物理顺序与叶结点从左到右的逻辑顺序相匹配，从而提高索引扫描性能</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">DBCC INDEXDEFRAG(<span class="operator">&lt;</span>表名<span class="operator">&gt;</span>,[<span class="operator">&lt;</span>索引名<span class="operator">&gt;</span>[,<span class="operator">&lt;</span>填充因子<span class="operator">&gt;</span>]])</span><br></pre></td></tr></table></figure></li>
+</ul>
+<h4 id="Ⅱ-重新组织索引"><a href="#Ⅱ-重新组织索引" class="headerlink" title="Ⅱ.重新组织索引"></a>Ⅱ.重新组织索引</h4><p>如果有关表或索引的统计信息已经过时或者不完整，则会导致优化器选择不是最佳的方案，并且会降低执行查询的速度，这样就需要重新组织索引。</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">ALTER</span> INDEX <span class="operator">&lt;</span>索引名<span class="operator">&gt;</span><span class="operator">|</span><span class="keyword">ALL</span></span><br><span class="line"><span class="keyword">ON</span> <span class="operator">&lt;</span>表<span class="operator">&gt;</span></span><br><span class="line">REBUILD</span><br><span class="line">[</span><br><span class="line"><span class="keyword">WITH</span></span><br><span class="line">(</span><br><span class="line">[[,]PAD_INDEX <span class="operator">=</span> <span class="keyword">ON</span><span class="operator">|</span>OFF]</span><br><span class="line">[[,]FILLFACTOR <span class="operator">=</span> <span class="operator">&lt;</span>填充因子<span class="operator">&gt;</span>]</span><br><span class="line">[[,]SORT_IN_TEMPDB <span class="operator">=</span> <span class="keyword">ON</span><span class="operator">|</span>OFF]</span><br><span class="line">)</span><br><span class="line">]</span><br></pre></td></tr></table></figure>
+
+<p>SORT_IN_TEMPDB = ON|OFF指定是否在tempdb中存储排序结果。默认OFF</p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/SQL-server/" rel="tag"># SQL server</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2021/04/05/%E8%A7%86%E5%9B%BE/" rel="next" title="视图">
+                <i class="fa fa-chevron-left"></i> 视图
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name"></p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/%20%7C%7C%20archive">
+              
+                  <span class="site-state-item-count">4</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                
+                  <span class="site-state-item-count">1</span>
+                  <span class="site-state-item-name">标签</span>
+                
+              </div>
+            
+
+          </nav>
+
+          
+            <div class="feed-link motion-element">
+              <a href="/atom.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%B4%A2%E5%BC%95%E5%88%86%E7%B1%BB"><span class="nav-number">1.</span> <span class="nav-text">索引分类</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-%E8%81%9A%E9%9B%86%E7%B4%A2%E5%BC%95%E5%92%8C%E9%9D%9E%E8%81%9A%E9%9B%86%E7%B4%A2%E5%BC%95"><span class="nav-number">1.1.</span> <span class="nav-text">1.聚集索引和非聚集索引</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-%E5%94%AF%E4%B8%80%E7%B4%A2%E5%BC%95%E5%92%8C%E9%9D%9E%E5%94%AF%E4%B8%80%E7%B4%A2%E5%BC%95"><span class="nav-number">1.2.</span> <span class="nav-text">2.唯一索引和非唯一索引</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-%E7%AE%80%E5%8D%95%E7%B4%A2%E5%BC%95%E5%92%8C%E5%A4%8D%E5%90%88%E7%B4%A2%E5%BC%95"><span class="nav-number">1.3.</span> <span class="nav-text">3.简单索引和复合索引</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%88%9B%E5%BB%BA%E7%B4%A2%E5%BC%95"><span class="nav-number">2.</span> <span class="nav-text">创建索引</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%97%B4%E6%8E%A5%E5%88%9B%E5%BB%BA%E7%B4%A2%E5%BC%95"><span class="nav-number">2.1.</span> <span class="nav-text">间接创建索引</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%AE%A1%E7%90%86%E7%B4%A2%E5%BC%95"><span class="nav-number">3.</span> <span class="nav-text">管理索引</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-%E6%9F%A5%E7%9C%8B%E7%B4%A2%E5%BC%95"><span class="nav-number">3.1.</span> <span class="nav-text">1.查看索引</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-%E4%BF%AE%E6%94%B9%E7%B4%A2%E5%BC%95"><span class="nav-number">3.2.</span> <span class="nav-text">2.修改索引</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-%E5%88%A0%E9%99%A4%E7%B4%A2%E5%BC%95"><span class="nav-number">3.3.</span> <span class="nav-text">3.删除索引</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-%E7%BB%B4%E6%8A%A4%E7%B4%A2%E5%BC%95"><span class="nav-number">3.4.</span> <span class="nav-text">4.维护索引</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E2%85%A0-%E6%A3%80%E6%9F%A5%E6%95%B4%E7%90%86%E7%B4%A2%E5%BC%95%E7%A2%8E%E7%89%87"><span class="nav-number">3.4.1.</span> <span class="nav-text">Ⅰ.检查整理索引碎片</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E2%85%A1-%E9%87%8D%E6%96%B0%E7%BB%84%E7%BB%87%E7%B4%A2%E5%BC%95"><span class="nav-number">3.4.2.</span> <span class="nav-text">Ⅱ.重新组织索引</span></a></li></ol></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">SuPer</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Pisces</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
