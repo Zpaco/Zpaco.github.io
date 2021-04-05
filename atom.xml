@@ -6,7 +6,7 @@
   <link href="http://example.com/atom.xml" rel="self"/>
   
   <link href="http://example.com/"/>
-  <updated>2021-04-05T10:50:39.727Z</updated>
+  <updated>2021-04-05T11:19:18.333Z</updated>
   <id>http://example.com/</id>
   
   <author>
@@ -15,6 +15,28 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>server</title>
+    <link href="http://example.com/2021/04/05/server/"/>
+    <id>http://example.com/2021/04/05/server/</id>
+    <published>2021-04-05T11:18:44.000Z</published>
+    <updated>2021-04-05T11:19:18.333Z</updated>
+    
+    <content type="html"><![CDATA[<p>Ⅰ.官网下载Microsoft SQL Server JDBC 驱动程序 <a href="https://docs.microsoft.com/zh-cn/sql/connect/jdbc/download-microsoft-jdbc-driver-for-sql-server?view=sql-server-2017%EF%BC%8C**%E5%AE%89%E8%A3%85%E8%B7%AF%E5%BE%84%E6%9C%80%E5%A5%BD%E5%85%A8%E8%8B%B1">https://docs.microsoft.com/zh-cn/sql/connect/jdbc/download-microsoft-jdbc-driver-for-sql-server?view=sql-server-2017，**安装路径最好全英</a>**</p><p>Ⅱ.解压打开文件夹可以找到三个jar文件，找到相对应版本的jar包，复制路径</p><p>Ⅲ.配置环境变量</p><p><img src="https://i.loli.net/2021/04/04/bHqz5En4aOkgeTV.png" alt="image-20210404231329409"></p><p>Ⅳ.打开SQL server配置管理器，启用TCP/IP协议，双击修改IP1和IP10的IP地址为127.0.0.1</p><p><img src="https://i.loli.net/2021/04/04/6sk5PMijmRTqelZ.png" alt="image-20210404232240401"></p><p>Ⅴ.启动控制面板，勾选Telnet客户端</p><p><img src="https://i.loli.net/2021/04/04/UhdKoFR5suYzGeB.png" alt="image-20210404154633013"></p><p>Ⅵ.测试；打开cmd，输入telnet 127.0.0.1 1433，得到以下页面即为1433端口打开成功</p><p><img src="https://i.loli.net/2021/04/04/18NS97CdQcwVLZ5.png" alt="image-20210404232412112"></p><p>Ⅶ.打开IDEA，新建文件Main.java</p><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> java.sql.*;</span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Main</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String []args)</span> </span>&#123;</span><br><span class="line">        String driverName=<span class="string">&quot;com.microsoft.sqlserver.jdbc.SQLServerDriver&quot;</span>;</span><br><span class="line">        String dbURL=<span class="string">&quot;jdbc:sqlserver://localhost:1433;DatabaseName=JXGL&quot;</span>;</span><br><span class="line">        String userName=<span class="string">&quot;sa&quot;</span>;</span><br><span class="line">        String userPwd=<span class="string">&quot;123&quot;</span>;</span><br><span class="line">        <span class="keyword">try</span></span><br><span class="line">        &#123;</span><br><span class="line">            Class.forName(driverName);</span><br><span class="line">            Connection dbConn=DriverManager.getConnection(dbURL,userName,userPwd);</span><br><span class="line">            System.out.println(<span class="string">&quot;success!&quot;</span>);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">catch</span>(Exception e)</span><br><span class="line">        &#123;</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">            System.out.print(<span class="string">&quot;fail!&quot;</span>);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><p>Alt+F12打开终端</p><p><img src="https://i.loli.net/2021/04/04/ihngr6PJTC9SX3Q.png" alt="image-20210404232737778"></p><p>成功连上数据库</p>]]></content>
+    
+    
+      
+      
+    <summary type="html">&lt;p&gt;Ⅰ.官网下载Microsoft SQL Server JDBC 驱动程序 &lt;a href=&quot;https://docs.microsoft.com/zh-cn/sql/connect/jdbc/download-microsoft-jdbc-driver-for-sql-se</summary>
+      
+    
+    
+    
+    
+    <category term="SQL server" scheme="http://example.com/tags/SQL-server/"/>
+    
+  </entry>
   
   <entry>
     <title>索引</title>
