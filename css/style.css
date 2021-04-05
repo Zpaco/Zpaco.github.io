@@ -893,13 +893,6 @@ a {
   background-size: 70%;
   background-position: 50% 50%;
 }
-#header .header-nav .social .GitHub {
-  background: url("https://GitHub#fff100.loli.net/2021/04/05/JZuwWUEf5F2c7C9.png") no-repeat #fff;
-  -webkit-background-size: 80%;
-  -moz-background-size: 80%;
-  background-size: 80%;
-  background-position: 50% 100%;
-}
 #header .header-nav .social .RSS {
   background: #ef7522;
 }
