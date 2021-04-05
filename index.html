@@ -169,7 +169,9 @@
       
       <div class="article-summary">
         
-          <p>4
+          
+索引分类1.聚集索引和非聚集索引聚集索引会对基本表进行物理排序，所以这种索引对查询非常有效，在每一张基本表中只能有一个聚集索引。当建立主键约束时，如果基本表中没有聚集索引，SQL Server会用主键列作聚集索引键。
+非聚集索引不会对基本表进行物理排序。如果表中不存在聚集索引，则基本表中是 ...
         
       </div>
       <a class="more" href="/2021/04/05/%E7%B4%A2%E5%BC%95/">Read more</a>
@@ -189,7 +191,12 @@
       
       <div class="article-summary">
         
-          <p>3
+          
+创建视图1234CREATE VIEW &lt;视图名&gt;[(&lt;列名&gt;[, ... n])]AS&lt;SELECT查询子句&gt;[WITH CHECK OPTION]
+
+&lt;视图名&gt;——新建视图的名称
+&lt;列名&gt;——视图中列使用的名称
+AS——指定视 ...
         
       </div>
       <a class="more" href="/2021/04/05/%E8%A7%86%E5%9B%BE/">Read more</a>
@@ -209,7 +216,8 @@
       
       <div class="article-summary">
         
-          <p>2
+          
+数据查询SELECT查询语句123456SELECT [ALL|DISTINCT] [TOP n[PERCENT]]&lt;目标表达式&gt;[, ... n][INTO &lt;新表名&gt;]FROM &lt;表名&gt;|&lt;视图&gt;[, ... n][WHERE &lt;条 ...
         
       </div>
       <a class="more" href="/2021/04/05/%E6%95%B0%E6%8D%AE%E6%9F%A5%E8%AF%A2/">Read more</a>
@@ -229,7 +237,15 @@
       
       <div class="article-summary">
         
-          <p>1
+          
+
+数据库管理创建数据库
+Window系统下创建文件夹D:\JXGLSYS\DATA
+
+打开Microsoft SQL Server Managemant Studio集成环境窗口，单击“新建查询”
+
+输入命令(以绩效管理系统JXGL举例)
+12345678910111213141516CR ...
         
       </div>
       <a class="more" href="/2021/04/05/%E6%95%B0%E6%8D%AE%E5%BA%93%E4%B8%8E%E6%95%B0%E6%8D%AE%E8%A1%A8%E7%AE%A1%E7%90%86/">Read more</a>
