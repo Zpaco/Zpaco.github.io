@@ -180,9 +180,7 @@
       
         
         <li class="menu-item menu-item-home">
-          <a href="/%20" rel="section">
-            
-              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+          <a href="/" rel="section">
             
             首页
           </a>
@@ -190,9 +188,7 @@
       
         
         <li class="menu-item menu-item-tags">
-          <a href="/tags/%20" rel="section">
-            
-              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+          <a href="/tags" rel="section">
             
             标签
           </a>
@@ -200,9 +196,7 @@
       
         
         <li class="menu-item menu-item-archives">
-          <a href="/archives/%20" rel="section">
-            
-              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+          <a href="/archives" rel="section">
             
             归档
           </a>
@@ -312,7 +306,8 @@
       
         
           
-            <h2 id="索引分类"><a href="#索引分类" class="headerlink" title="索引分类"></a>索引分类</h2><h3 id="1-聚集索引和非聚集索引"><a href="#1-聚集索引和非聚集索引" class="headerlink" title="1.聚集索引和非聚集索引"></a>1.聚集索引和非聚集索引</h3><p>聚集索引会对基本表进行物理排序，所以这种索引对查询非常有效，<strong>在每一张基本表中只能有一个聚集索引</strong>。当建立主键约束时，如果基本表中没有聚集索引，SQL Server会用主键列作聚集索引键。</p>
+            <span id="more"></span>
+<h2 id="索引分类"><a href="#索引分类" class="headerlink" title="索引分类"></a>索引分类</h2><h3 id="1-聚集索引和非聚集索引"><a href="#1-聚集索引和非聚集索引" class="headerlink" title="1.聚集索引和非聚集索引"></a>1.聚集索引和非聚集索引</h3><p>聚集索引会对基本表进行物理排序，所以这种索引对查询非常有效，<strong>在每一张基本表中只能有一个聚集索引</strong>。当建立主键约束时，如果基本表中没有聚集索引，SQL Server会用主键列作聚集索引键。</p>
 <p>非聚集索引不会对基本表进行物理排序。如果表中不存在聚集索引，则基本表中是不排序的。</p>
 <h3 id="2-唯一索引和非唯一索引"><a href="#2-唯一索引和非唯一索引" class="headerlink" title="2.唯一索引和非唯一索引"></a>2.唯一索引和非唯一索引</h3><p>唯一索引确保在被索引的列中，所有数据是唯一的，不包含重复值。如果表具有PRIMARY KEY约束或UNIQUE约束，那么执行CREATE TABLE语句或ALTER TABLE语句时，SQL Server会自动创建唯一索引。</p>
 <p>非唯一索引允许所保存的列中出现重复值，所以在数据操作时，非唯一索引会比唯一索引带来更大的开销。</p>
@@ -473,7 +468,8 @@
       
         
           
-            <h2 id="创建视图"><a href="#创建视图" class="headerlink" title="创建视图"></a>创建视图</h2><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">CREATE</span> <span class="keyword">VIEW</span> <span class="operator">&lt;</span>视图名<span class="operator">&gt;</span>[(<span class="operator">&lt;</span>列名<span class="operator">&gt;</span>[, ... n])]</span><br><span class="line"><span class="keyword">AS</span></span><br><span class="line"><span class="operator">&lt;</span><span class="keyword">SELECT</span>查询子句<span class="operator">&gt;</span></span><br><span class="line">[<span class="keyword">WITH</span> <span class="keyword">CHECK</span> OPTION]</span><br></pre></td></tr></table></figure>
+            <span id="more"></span>
+<h2 id="创建视图"><a href="#创建视图" class="headerlink" title="创建视图"></a>创建视图</h2><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">CREATE</span> <span class="keyword">VIEW</span> <span class="operator">&lt;</span>视图名<span class="operator">&gt;</span>[(<span class="operator">&lt;</span>列名<span class="operator">&gt;</span>[, ... n])]</span><br><span class="line"><span class="keyword">AS</span></span><br><span class="line"><span class="operator">&lt;</span><span class="keyword">SELECT</span>查询子句<span class="operator">&gt;</span></span><br><span class="line">[<span class="keyword">WITH</span> <span class="keyword">CHECK</span> OPTION]</span><br></pre></td></tr></table></figure>
 
 <p>&lt;视图名&gt;——新建视图的名称</p>
 <p>&lt;列名&gt;——视图中列使用的名称</p>
@@ -629,7 +625,8 @@
       
         
           
-            <h1 id="数据查询"><a href="#数据查询" class="headerlink" title="数据查询"></a>数据查询</h1><h2 id="SELECT查询语句"><a href="#SELECT查询语句" class="headerlink" title="SELECT查询语句"></a>SELECT查询语句</h2><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> [<span class="keyword">ALL</span><span class="operator">|</span><span class="keyword">DISTINCT</span>] [TOP n[<span class="keyword">PERCENT</span>]]<span class="operator">&lt;</span>目标表达式<span class="operator">&gt;</span>[, ... n]</span><br><span class="line">[<span class="keyword">INTO</span> <span class="operator">&lt;</span>新表名<span class="operator">&gt;</span>]</span><br><span class="line"><span class="keyword">FROM</span> <span class="operator">&lt;</span>表名<span class="operator">&gt;</span><span class="operator">|</span><span class="operator">&lt;</span>视图<span class="operator">&gt;</span>[, ... n]</span><br><span class="line">[<span class="keyword">WHERE</span> <span class="operator">&lt;</span>条件表达式<span class="operator">&gt;</span>]</span><br><span class="line">[<span class="keyword">GROUP</span> <span class="keyword">BY</span> <span class="operator">&lt;</span>列名<span class="number">1</span><span class="operator">&gt;</span>[<span class="keyword">HAVING</span> <span class="operator">&lt;</span>条件表达式<span class="operator">&gt;</span>]]</span><br><span class="line">[<span class="keyword">ORDER</span> <span class="keyword">BY</span> <span class="operator">&lt;</span>列名<span class="number">2</span><span class="operator">&gt;</span> [<span class="keyword">ASC</span><span class="operator">|</span><span class="keyword">DESC</span>]]</span><br></pre></td></tr></table></figure>
+            <span id="more"></span>
+<h1 id="数据查询"><a href="#数据查询" class="headerlink" title="数据查询"></a>数据查询</h1><h2 id="SELECT查询语句"><a href="#SELECT查询语句" class="headerlink" title="SELECT查询语句"></a>SELECT查询语句</h2><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> [<span class="keyword">ALL</span><span class="operator">|</span><span class="keyword">DISTINCT</span>] [TOP n[<span class="keyword">PERCENT</span>]]<span class="operator">&lt;</span>目标表达式<span class="operator">&gt;</span>[, ... n]</span><br><span class="line">[<span class="keyword">INTO</span> <span class="operator">&lt;</span>新表名<span class="operator">&gt;</span>]</span><br><span class="line"><span class="keyword">FROM</span> <span class="operator">&lt;</span>表名<span class="operator">&gt;</span><span class="operator">|</span><span class="operator">&lt;</span>视图<span class="operator">&gt;</span>[, ... n]</span><br><span class="line">[<span class="keyword">WHERE</span> <span class="operator">&lt;</span>条件表达式<span class="operator">&gt;</span>]</span><br><span class="line">[<span class="keyword">GROUP</span> <span class="keyword">BY</span> <span class="operator">&lt;</span>列名<span class="number">1</span><span class="operator">&gt;</span>[<span class="keyword">HAVING</span> <span class="operator">&lt;</span>条件表达式<span class="operator">&gt;</span>]]</span><br><span class="line">[<span class="keyword">ORDER</span> <span class="keyword">BY</span> <span class="operator">&lt;</span>列名<span class="number">2</span><span class="operator">&gt;</span> [<span class="keyword">ASC</span><span class="operator">|</span><span class="keyword">DESC</span>]]</span><br></pre></td></tr></table></figure>
 
 <ul>
 <li>ALL——(没有则默认) 表示输出所有记录，包括重复</li>
@@ -1056,7 +1053,7 @@
             
               <div class="site-state-item site-state-posts">
               
-                <a href="/archives/%20%7C%7C%20archive">
+                <a href="/archives">
               
                   <span class="site-state-item-count">4</span>
                   <span class="site-state-item-name">日志</span>
