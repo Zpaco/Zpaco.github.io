@@ -2785,32 +2785,7 @@ pre .javascript .function {
   top: 0.4375rem;
   left: 2px;
 }
-.article-tag::before .article-tag-list,
-.article-tag .article-tag-list {
-  display: -webkit-box;
-  display: -moz-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: box;
-  display: flex;
-  -webkit-box-lines: multiple;
-  -moz-box-lines: multiple;
-  -webkit-flex-wrap: wrap;
-  -ms-flex-wrap: wrap;
-  flex-wrap: wrap;
-}
-.article-tag::before span,
-.article-tag span {
-  cursor: pointer;
-  line-height: 29px;
-  font-size: 13px;
-  color: #aaa;
-}
-.article-tag::before span:before,
-.article-tag span:before {
-  content: "\27A4";
-  margin-left: 1em;
-}
+.article-tag::before,
 .article-category::before {
   float: left;
   color: #999;
