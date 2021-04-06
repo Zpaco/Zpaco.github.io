@@ -40,9 +40,9 @@
     <link href="http://example.com/2021/04/06/%E6%96%B0%E7%9A%84%E7%AF%87%E7%AB%A0/"/>
     <id>http://example.com/2021/04/06/%E6%96%B0%E7%9A%84%E7%AF%87%E7%AB%A0/</id>
     <published>2021-04-06T01:32:46.000Z</published>
-    <updated>2021-04-06T01:39:14.065Z</updated>
+    <updated>2021-04-06T14:39:31.501Z</updated>
     
-    <content type="html"><![CDATA[<h1 id="总结："><a href="#总结：" class="headerlink" title="总结："></a>总结：</h1><pre><code>记得第一次接触博客的时候，</code></pre>]]></content>
+    <content type="html"><![CDATA[<p>2020年，也是不寻常的一年</p><p>2月，初次接触博客，在博客园建立第一个属于自己的博客。</p><p>3月，初次接触Hexo，自己找教程捣鼓了两天，中间也出了不少问题，也解决了很多问题，终于可以’hexo s‘打开本地浏览页面，却在改主题配置的时候遇到很多BUG放弃Hexo。</p><p>2021年，新的一年</p><p>4月，趁着假期期间，我再一次重装hexo，感谢作者大大<a href="http://moxfive.xyz/%E7%9A%84%E4%B8%BB%E9%A2%98">http://moxfive.xyz/的主题</a></p>]]></content>
     
     
     <summary type="html">终于从博客园搬家到Hexo了</summary>
