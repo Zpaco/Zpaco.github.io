@@ -3,15 +3,22 @@
 
 
     <url>
-        <loc>http://example.com/tags/%E6%80%BB%E7%BB%93/</loc>
-        <lastmod>2021-04-06T14:58:40.966Z</lastmod>
+        <loc>http://example.com/tags/SQL-Server-JDBC/</loc>
+        <lastmod>2021-04-06T15:16:05.343Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.2</priority>
     </url>
 
     <url>
         <loc>http://example.com/tags/SQL-Server/</loc>
-        <lastmod>2021-04-06T01:44:22.382Z</lastmod>
+        <lastmod>2021-04-06T15:10:57.717Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.2</priority>
+    </url>
+
+    <url>
+        <loc>http://example.com/tags/%E6%80%BB%E7%BB%93/</loc>
+        <lastmod>2021-04-06T14:58:40.966Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.2</priority>
     </url>
