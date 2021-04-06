@@ -27,7 +27,7 @@
       <link href="2021/04/06/%E6%96%B0%E7%9A%84%E7%AF%87%E7%AB%A0/"/>
       <url>2021/04/06/%E6%96%B0%E7%9A%84%E7%AF%87%E7%AB%A0/</url>
       
-        <content type="html"><![CDATA[<p>2020年，也是不寻常的一年</p><p>2月，初次接触博客，在博客园建立第一个属于自己的博客。</p><p>3月，初次接触Hexo，自己找教程捣鼓了两天，中间也出了不少问题，也解决了很多问题，终于可以’hexo s‘打开本地浏览页面，却在改主题配置的时候遇到很多BUG放弃Hexo。</p><p>2021年，新的一年</p><p>4月，趁着假期期间，我再一次重装hexo，感谢作者大大<a href="http://moxfive.xyz/%E7%9A%84%E4%B8%BB%E9%A2%98">http://moxfive.xyz/的主题</a></p>]]></content>
+        <content type="html"><![CDATA[<p>22020年，也是不寻常的一年</p><p>2月，初次接触博客，在博客园建立第一个属于自己的博客。</p><p>3月，初次接触Hexo，自己找教程捣鼓了两天，中间也出了不少问题，也解决了很多问题，终于可以’hexo s‘打开本地浏览页面，却在改主题配置的时候遇到很多BUG未能耐心解决从而放弃Hexo。</p><p>2021年，新的一年</p><p>4月，趁着假期期间，我再一次重装hexo，感谢作者大大<a href="http://moxfive.xyz/%E7%9A%84%E4%B8%BB%E9%A2%98">http://moxfive.xyz/的主题</a></p>]]></content>
       
       
       
@@ -45,9 +45,9 @@
     
     
     <entry>
-      <title>tags</title>
-      <link href="tags/index.html"/>
-      <url>tags/index.html</url>
+      <title>about</title>
+      <link href="about/index.html"/>
+      <url>about/index.html</url>
       
         <content type="html"><![CDATA[]]></content>
       
@@ -56,9 +56,9 @@
     
     
     <entry>
-      <title>about</title>
-      <link href="about/index.html"/>
-      <url>about/index.html</url>
+      <title>tags</title>
+      <link href="tags/index.html"/>
+      <url>tags/index.html</url>
       
         <content type="html"><![CDATA[]]></content>
       
