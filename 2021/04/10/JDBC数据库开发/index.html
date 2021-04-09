@@ -1,0 +1,565 @@
+<!DOCTYPE html>
+<html lang="zh-Hans">
+<head>
+
+    <!--[if lt IE 9]>
+        <style>body {display: none; background: none !important} </style>
+        <meta http-equiv="Refresh" Content="0; url=//outdatedbrowser.com/" />
+    <![endif]-->
+
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<meta name="format-detection" content="telephone=no" />
+<meta name="author" content="SuPer" />
+
+
+
+<meta name="description" content="JDBC连接SQL ServerJDBC进行增删查改操作">
+<meta property="og:type" content="article">
+<meta property="og:title" content="JDBC数据库开发">
+<meta property="og:url" content="http://example.com/2021/04/10/JDBC%E6%95%B0%E6%8D%AE%E5%BA%93%E5%BC%80%E5%8F%91/index.html">
+<meta property="og:site_name" content="blog | SuPer">
+<meta property="og:description" content="JDBC连接SQL ServerJDBC进行增删查改操作">
+<meta property="og:locale">
+<meta property="og:image" content="https://i.loli.net/2021/04/04/bHqz5En4aOkgeTV.png">
+<meta property="og:image" content="https://i.loli.net/2021/04/04/6sk5PMijmRTqelZ.png">
+<meta property="og:image" content="https://i.loli.net/2021/04/04/UhdKoFR5suYzGeB.png">
+<meta property="og:image" content="https://i.loli.net/2021/04/04/18NS97CdQcwVLZ5.png">
+<meta property="og:image" content="https://i.loli.net/2021/04/09/6nPgyE3TWH1Cbcu.png">
+<meta property="og:image" content="https://i.loli.net/2021/04/09/iYlX8uDc1NLqJya.png">
+<meta property="og:image" content="https://i.loli.net/2021/04/09/YjsEZuqRVvwUObK.png">
+<meta property="og:image" content="https://i.loli.net/2021/04/09/7SkN38s6Ag4GJWU.png">
+<meta property="og:image" content="https://i.loli.net/2021/04/10/i8JRLkDrbVoyUt3.png">
+<meta property="og:image" content="https://i.loli.net/2021/04/10/DBZ5K9iWb48Vjrk.png">
+<meta property="article:published_time" content="2021-04-09T16:30:51.000Z">
+<meta property="article:modified_time" content="2021-04-09T16:32:45.268Z">
+<meta property="article:author" content="SuPer">
+<meta property="article:tag" content="SQL Server">
+<meta property="article:tag" content="JDBC">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://i.loli.net/2021/04/04/bHqz5En4aOkgeTV.png">
+
+<link rel="apple-touch-icon" href= "/apple-touch-icon.png">
+
+
+    <link rel="alternate" href="/atom.xml" title="blog | SuPer" type="application/atom+xml">
+
+
+
+    <link rel="shortcut icon" href="https://i.loli.net/2021/04/05/diBU7VJ4FvznHNZ.png">
+
+
+
+    <link href="//cdn.bootcss.com/animate.css/3.5.1/animate.min.css" rel="stylesheet">
+
+
+
+    <link href="//cdn.bootcss.com/fancybox/2.1.5/jquery.fancybox.min.css" rel="stylesheet">
+
+
+
+    <script src="//cdn.bootcss.com/pace/1.0.2/pace.min.js"></script>
+    <link href="//cdn.bootcss.com/pace/1.0.2/themes/blue/pace-theme-minimal.css" rel="stylesheet">
+
+
+
+<link rel="stylesheet" href="/css/style.css">
+
+
+
+
+<link href="//cdn.bootcss.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet">
+
+
+<title>JDBC数据库开发 | blog | SuPer</title>
+
+<script src="//cdn.bootcss.com/jquery/2.2.4/jquery.min.js"></script>
+<script src="//cdn.bootcss.com/clipboard.js/1.5.10/clipboard.min.js"></script>
+
+<script>
+    var yiliaConfig = {
+        fancybox: true,
+        animate: true,
+        isHome: false,
+        isPost: true,
+        isArchive: false,
+        isTag: false,
+        isCategory: false,
+        fancybox_js: "//cdn.bootcss.com/fancybox/2.1.5/jquery.fancybox.min.js",
+        scrollreveal: "//cdn.bootcss.com/scrollReveal.js/3.1.4/scrollreveal.min.js",
+        search: true
+    }
+</script>
+
+
+    <script> yiliaConfig.jquery_ui = [false]; </script>
+
+
+
+    <script> yiliaConfig.rootUrl = "\/";</script>
+
+
+
+
+
+    <script>
+        var _hmt = _hmt || [];
+        (function() {
+            var hm = document.createElement("script");
+            hm.src = "//hm.baidu.com/hm.js?4bef65a0b7e4ec5deb4c783bc78614e4";
+            var s = document.getElementsByTagName("script")[0]; 
+            s.parentNode.insertBefore(hm, s);
+        })();
+    </script>
+
+
+<meta name="generator" content="Hexo 5.4.0"></head>
+<body>
+  <div id="container">
+    <div class="left-col">
+    <div class="overlay"></div>
+<div class="intrude-less">
+    <header id="header" class="inner">
+        <a href="/" class="profilepic">
+            <img src="https://i.loli.net/2021/04/05/K3zlX9vUT4f2ph5.png" class="animated zoomIn">
+        </a>
+        <hgroup>
+          <h1 class="header-author"><a href="/">SuPer</a></h1>
+        </hgroup>
+
+        
+
+        
+            <form id="search-form">
+            <input type="text" id="local-search-input" name="q" placeholder="search..." class="search form-control" autocomplete="off" autocorrect="off" searchonload="false" />
+            <i class="fa fa-times" onclick="resetSearch()"></i>
+            </form>
+            <div id="local-search-result"></div>
+            <p class='no-result'>No results found <i class='fa fa-spinner fa-pulse'></i></p>
+        
+
+
+        
+            <div id="switch-btn" class="switch-btn">
+                <div class="icon">
+                    <div class="icon-ctn">
+                        <div class="icon-wrap icon-house" data-idx="0">
+                            <div class="birdhouse"></div>
+                            <div class="birdhouse_holes"></div>
+                        </div>
+                        <div class="icon-wrap icon-ribbon hide" data-idx="1">
+                            <div class="ribbon"></div>
+                        </div>
+                        
+                        <div class="icon-wrap icon-link hide" data-idx="2">
+                            <div class="loopback_l"></div>
+                            <div class="loopback_r"></div>
+                        </div>
+                        
+                        
+                    </div>
+                    
+                </div>
+                <div class="tips-box hide">
+                    <div class="tips-arrow"></div>
+                    <ul class="tips-inner">
+                        <li>菜单</li>
+                        <li>标签</li>
+                        
+                        <li>友情链接</li>
+                        
+                        
+                    </ul>
+                </div>
+            </div>
+        
+
+        <div id="switch-area" class="switch-area">
+            <div class="switch-wrap">
+                <section class="switch-part switch-part1">
+                    <nav class="header-menu">
+                        <ul>
+                        
+                            <li><a href="/">主页</a></li>
+                        
+                            <li><a href="/archives/">所有文章</a></li>
+                        
+                            <li><a href="/tags/">标签云</a></li>
+                        
+                            <li><a href="/about/">关于我</a></li>
+                        
+                        </ul>
+                    </nav>
+                    <nav class="header-nav">
+                        <ul class="social">
+                            
+                                <a class="fa Email" href="/1837293264@qq.com" title="Email"></a>
+                            
+                                <a class="fa GitHub" target="_blank" rel="noopener" href="https://github.com/Zpaco" title="GitHub"></a>
+                            
+                                <a class="fa 博客园" target="_blank" rel="noopener" href="https://www.cnblogs.com/-SuPer/" title="博客园"></a>
+                            
+                                <a class="fa RSS" href="/atom.xml" title="RSS"></a>
+                            
+                        </ul>
+                    </nav>
+                </section>
+                
+                
+                <section class="switch-part switch-part2">
+                    <div class="widget tagcloud" id="js-tagcloud">
+                        <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/JDBC/" rel="tag">JDBC</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/SQL-Server/" rel="tag">SQL Server</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%80%BB%E7%BB%93/" rel="tag">总结</a></li></ul>
+                    </div>
+                </section>
+                
+                
+                
+                <section class="switch-part switch-part3">
+                    <div id="js-friends">
+                    
+                      <a class="main-nav-link switch-friends-link" target="_blank" rel="noopener" href="https://hexo.io">Hexo</a>
+                    
+                      <a class="main-nav-link switch-friends-link" target="_blank" rel="noopener" href="https://pages.github.com/">GitHub</a>
+                    
+                      <a class="main-nav-link switch-friends-link" target="_blank" rel="noopener" href="http://moxfive.xyz/">MOxFIVE</a>
+                    
+                      <a class="main-nav-link switch-friends-link" target="_blank" rel="noopener" href="http://militray_axe.github.io">militray_axe</a>
+                    
+                    </div>
+                </section>
+                
+
+                
+            </div>
+        </div>
+    </header>                
+</div>
+    </div>
+    <div class="mid-col">
+      <nav id="mobile-nav">
+      <div class="overlay">
+          <div class="slider-trigger"></div>
+          <h1 class="header-author js-mobile-header hide"><a href="/" title="回到主页">SuPer</a></h1>
+      </div>
+    <div class="intrude-less">
+        <header id="header" class="inner">
+            <a href="/" class="profilepic">
+                <img src="https://i.loli.net/2021/04/05/K3zlX9vUT4f2ph5.png" class="animated zoomIn">
+            </a>
+            <hgroup>
+              <h1 class="header-author"><a href="/" title="回到主页">SuPer</a></h1>
+            </hgroup>
+            
+            <nav class="header-menu">
+                <ul>
+                
+                    <li><a href="/">主页</a></li>
+                
+                    <li><a href="/archives/">所有文章</a></li>
+                
+                    <li><a href="/tags/">标签云</a></li>
+                
+                    <li><a href="/about/">关于我</a></li>
+                
+                <div class="clearfix"></div>
+                </ul>
+            </nav>
+            <nav class="header-nav">
+                        <ul class="social">
+                            
+                                <a class="fa Email" target="_blank" href="/1837293264@qq.com" title="Email"></a>
+                            
+                                <a class="fa GitHub" target="_blank" href="https://github.com/Zpaco" title="GitHub"></a>
+                            
+                                <a class="fa 博客园" target="_blank" href="https://www.cnblogs.com/-SuPer/" title="博客园"></a>
+                            
+                                <a class="fa RSS" target="_blank" href="/atom.xml" title="RSS"></a>
+                            
+                        </ul>
+            </nav>
+        </header>                
+    </div>
+    <link class="menu-list" tags="标签" friends="友情链接" about="关于我"/>
+</nav>
+      <div class="body-wrap"><article id="post-JDBC数据库开发" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2021/04/10/JDBC%E6%95%B0%E6%8D%AE%E5%BA%93%E5%BC%80%E5%8F%91/" class="article-date">
+      <time datetime="2021-04-09T16:30:51.000Z" itemprop="datePublished">2021-04-10</time>
+</a>
+
+
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      JDBC数据库开发
+    </h1>
+  
+
+      </header>
+      
+      <div class="article-info article-info-post">
+        
+
+        
+    <div class="article-tag tagcloud">
+        <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/JDBC/" rel="tag">JDBC</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/SQL-Server/" rel="tag">SQL Server</a></li></ul>
+    </div>
+
+        <div class="clearfix"></div>
+      </div>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+          
+        <h2 id="JDBC连接SQL-Server"><a href="#JDBC连接SQL-Server" class="headerlink" title="JDBC连接SQL Server"></a>JDBC连接SQL Server</h2><p>Ⅰ.官网下载Microsoft SQL Server JDBC 驱动程序 <a target="_blank" rel="noopener" href="https://docs.microsoft.com/zh-cn/sql/connect/jdbc/download-microsoft-jdbc-driver-for-sql-server?view=sql-server-2017%EF%BC%8C">https://docs.microsoft.com/zh-cn/sql/connect/jdbc/download-microsoft-jdbc-driver-for-sql-server?view=sql-server-2017，</a> (<strong>安装路径最好全英</strong>)</p>
+<p>Ⅱ.解压打开文件夹可以找到三个jar文件，找到相对应版本的jar包，复制路径</p>
+<p>Ⅲ.配置环境变量</p>
+<p><img src="https://i.loli.net/2021/04/04/bHqz5En4aOkgeTV.png" alt="image-20210404231329409"></p>
+<p>Ⅳ.打开SQL server配置管理器，启用TCP/IP协议，双击修改IP1和IP10的IP地址为127.0.0.1</p>
+<p><img src="https://i.loli.net/2021/04/04/6sk5PMijmRTqelZ.png" alt="image-20210404232240401"></p>
+<p>Ⅴ.启动控制面板，勾选Telnet客户端</p>
+<p><img src="https://i.loli.net/2021/04/04/UhdKoFR5suYzGeB.png" alt="image-20210404154633013"></p>
+<p>Ⅵ.测试；打开cmd，输入telnet 127.0.0.1 1433，得到以下页面即为1433端口打开成功</p>
+<p><img src="https://i.loli.net/2021/04/04/18NS97CdQcwVLZ5.png" alt="image-20210404232412112"></p>
+<p>若提示连接失败，打开SQL Server配置管理器重启服务器</p>
+<p><img src="https://i.loli.net/2021/04/09/6nPgyE3TWH1Cbcu.png" alt="image-20210409213730600"></p>
+<p>Ⅶ.打开IDEA</p>
+<p>打开项目结构</p>
+<p><img src="https://i.loli.net/2021/04/09/iYlX8uDc1NLqJya.png" alt="image-20210409234036059"></p>
+<p><img src="https://i.loli.net/2021/04/09/YjsEZuqRVvwUObK.png" alt="image-20210409234500243"></p>
+<p>添加之前下载的jar包</p>
+<p><img src="https://i.loli.net/2021/04/09/7SkN38s6Ag4GJWU.png" alt="image-20210409234714435"></p>
+<p>Ⅷ.新建文件Connect.java</p>
+<p>1.准备四大参数</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">String driverClassName = <span class="string">&quot;com.microsoft.sqlserver.jdbc.SQLServerDriver&quot;</span>;<span class="comment">//JDBC协议的格式</span></span><br><span class="line">String url = <span class="string">&quot;jdbc:sqlserver://localhost:1433;DatabaseName=JXGL&quot;</span>;</span><br><span class="line">String username = <span class="string">&quot;sa&quot;</span>;</span><br><span class="line">String password = <span class="string">&quot;123&quot;</span>;</span><br></pre></td></tr></table></figure>
+
+<p>2.加载驱动类</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Class.forName(driverClassName);</span><br></pre></td></tr></table></figure>
+
+<p>3.通过剩下的三个参数调用DriverManager的getConnection(),得到Connection</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Connection con = DriverManager.getConnection(url,username,password);</span><br></pre></td></tr></table></figure>
+
+<p>4.完整代码</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> java.sql.*;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Connect</span></span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String args[])</span> <span class="keyword">throws</span> ClassNotFoundException,SQLException</span>&#123;</span><br><span class="line">        <span class="comment">/*</span></span><br><span class="line"><span class="comment">         *JDBC四大参数</span></span><br><span class="line"><span class="comment">         * &gt;driverClassName:com.microsoft.sqlserver.jdbc.SQLServerDriver</span></span><br><span class="line"><span class="comment">         * &gt;url:jdbc:sqlserver://localhost:1433;DatabaseName=JXGL</span></span><br><span class="line"><span class="comment">         * &gt;username:sa</span></span><br><span class="line"><span class="comment">         * &gt;password:123</span></span><br><span class="line"><span class="comment">         */</span></span><br><span class="line">        String driverClassName = <span class="string">&quot;com.microsoft.sqlserver.jdbc.SQLServerDriver&quot;</span>;<span class="comment">//JDBC协议的格式</span></span><br><span class="line">        String url = <span class="string">&quot;jdbc:sqlserver://localhost:1433;DatabaseName=JXGL&quot;</span>;</span><br><span class="line">        String username = <span class="string">&quot;sa&quot;</span>;</span><br><span class="line">        String password = <span class="string">&quot;123&quot;</span>;</span><br><span class="line"></span><br><span class="line">        <span class="comment">//加载驱动类</span></span><br><span class="line">        Class.forName(driverClassName);</span><br><span class="line">        Connection con = DriverManager.getConnection(url,username,password);</span><br><span class="line">        </span><br><span class="line">        System.out.println(con);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>Alt+F12打开终端</p>
+<p>编译运行</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">D:\Code\JAVA\JXGL&gt;javac Connect.java</span><br><span class="line"></span><br><span class="line">D:\Code\JAVA\JXGL&gt;java Connect</span><br></pre></td></tr></table></figure>
+
+<p>出现ConnectionID:和ClientConnectionId</p>
+<p>即成功连上数据库</p>
+<h2 id="JDBC进行增删改"><a href="#JDBC进行增删改" class="headerlink" title="JDBC进行增删改"></a>JDBC进行增删改</h2><h3 id="数据库进行增删改"><a href="#数据库进行增删改" class="headerlink" title="数据库进行增删改"></a>数据库进行增删改</h3><p>通过JDBC创建一个STU表，表中包含学号，姓名，年龄，设置学号为主键</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> java.sql.*;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Text</span> </span>&#123;</span><br><span class="line">    <span class="comment">/*</span></span><br><span class="line"><span class="comment">     *连接数据库，得到Connection就算成功</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String args[])</span> <span class="keyword">throws</span> ClassNotFoundException,SQLException </span>&#123;</span><br><span class="line">        <span class="comment">/*</span></span><br><span class="line"><span class="comment">         *一、得到Connection</span></span><br><span class="line"><span class="comment">         * 1.准备四大参数</span></span><br><span class="line"><span class="comment">         * 2.加载驱动类</span></span><br><span class="line"><span class="comment">         * 3.得到Connection</span></span><br><span class="line"><span class="comment">         */</span></span><br><span class="line">        String driverClassName = <span class="string">&quot;com.microsoft.sqlserver.jdbc.SQLServerDriver&quot;</span>;<span class="comment">//JDBC协议的格式</span></span><br><span class="line">        String url = <span class="string">&quot;jdbc:sqlserver://localhost:1433;DatabaseName=JXGL&quot;</span>;</span><br><span class="line">        String username = <span class="string">&quot;sa&quot;</span>;</span><br><span class="line">        String password = <span class="string">&quot;123&quot;</span>;</span><br><span class="line"></span><br><span class="line">        <span class="comment">//加载驱动类</span></span><br><span class="line">        Class.forName(driverClassName);</span><br><span class="line">        Connection con = DriverManager.getConnection(url,username,password);</span><br><span class="line"></span><br><span class="line">        <span class="comment">/*</span></span><br><span class="line"><span class="comment">         *二、对数据库的增删改</span></span><br><span class="line"><span class="comment">         * 1.通过Connection对象创建Statement</span></span><br><span class="line"><span class="comment">         * &gt;Statement语句的发送器，它的功能是向数据库发送SQL语句！</span></span><br><span class="line"><span class="comment">         * 2.调用它的int executeUpdate(String sql)，他可以发送DML，DDL</span></span><br><span class="line"><span class="comment">         */</span></span><br><span class="line"></span><br><span class="line">        <span class="comment">//通过Connection对象创建Statement</span></span><br><span class="line">        Statement stmt = con.createStatement();</span><br><span class="line">        <span class="comment">//通过Statement发送sql语句</span></span><br><span class="line">        String sql = <span class="string">&quot;CREATE TABLE STU(SNO char(3) PRIMARY KEY,SNAME varchar(10),AGE int)&quot;</span>;</span><br><span class="line">        <span class="keyword">int</span> r = stmt.executeUpdate(sql);</span><br><span class="line">        System.out.println(r);<span class="comment">//r为改变的行数</span></span><br><span class="line"></span><br><span class="line">        <span class="comment">/*</span></span><br><span class="line"><span class="comment">         * 关闭资源</span></span><br><span class="line"><span class="comment">         * 倒关，先用的后关，后用的先关</span></span><br><span class="line"><span class="comment">         */</span></span><br><span class="line">        stmt.close();</span><br><span class="line">        con.close();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">D:\Code\JAVA\JXGL&gt;javac Text.java</span><br><span class="line"></span><br><span class="line">D:\Code\JAVA\JXGL&gt;java Text</span><br><span class="line">0</span><br></pre></td></tr></table></figure>
+
+<p>在STU表中加入一行数据 学号：001 姓名：Super 年龄：18</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> java.sql.*;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Text</span> </span>&#123;</span><br><span class="line">    <span class="comment">/*</span></span><br><span class="line"><span class="comment">     *连接数据库，得到Connection就算成功</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String args[])</span> <span class="keyword">throws</span> ClassNotFoundException,SQLException </span>&#123;</span><br><span class="line">        <span class="comment">/*</span></span><br><span class="line"><span class="comment">         *一、得到Connection</span></span><br><span class="line"><span class="comment">         * 1.准备四大参数</span></span><br><span class="line"><span class="comment">         * 2.加载驱动类</span></span><br><span class="line"><span class="comment">         * 3.得到Connection</span></span><br><span class="line"><span class="comment">         */</span></span><br><span class="line">        String driverClassName = <span class="string">&quot;com.microsoft.sqlserver.jdbc.SQLServerDriver&quot;</span>;<span class="comment">//JDBC协议的格式</span></span><br><span class="line">        String url = <span class="string">&quot;jdbc:sqlserver://localhost:1433;DatabaseName=JXGL&quot;</span>;</span><br><span class="line">        String username = <span class="string">&quot;sa&quot;</span>;</span><br><span class="line">        String password = <span class="string">&quot;123&quot;</span>;</span><br><span class="line"></span><br><span class="line">        <span class="comment">//加载驱动类</span></span><br><span class="line">        Class.forName(driverClassName);</span><br><span class="line">        Connection con = DriverManager.getConnection(url,username,password);</span><br><span class="line"></span><br><span class="line">        <span class="comment">/*</span></span><br><span class="line"><span class="comment">         *二、对数据库的增删改</span></span><br><span class="line"><span class="comment">         * 1.通过Connection对象创建Statement</span></span><br><span class="line"><span class="comment">         * &gt;Statement语句的发送器，它的功能是向数据库发送SQL语句！</span></span><br><span class="line"><span class="comment">         * 2.调用它的int executeUpdate(String sql)，他可以发送DML，DDL</span></span><br><span class="line"><span class="comment">         */</span></span><br><span class="line"></span><br><span class="line">        <span class="comment">//通过Connection对象创建Statement</span></span><br><span class="line">        Statement stmt = con.createStatement();</span><br><span class="line">        <span class="comment">//通过Statement发送sql语句</span></span><br><span class="line">        String sql = <span class="string">&quot;INSERT INTO STU(SNO,SNAME,AGE) VALUES(&#x27;001&#x27;,&#x27;SuPer&#x27;,18)&quot;</span>;</span><br><span class="line">        <span class="keyword">int</span> r = stmt.executeUpdate(sql);</span><br><span class="line">        System.out.println(r);<span class="comment">//r为改变的行数</span></span><br><span class="line"></span><br><span class="line">        <span class="comment">/*</span></span><br><span class="line"><span class="comment">         * 关闭资源</span></span><br><span class="line"><span class="comment">         * 倒关，先用的后关，后用的先关</span></span><br><span class="line"><span class="comment">         */</span></span><br><span class="line">        stmt.close();</span><br><span class="line">        con.close();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">D:\Code\JAVA\JXGL&gt;javac -encoding UTF-8 Text.java</span><br><span class="line"></span><br><span class="line">D:\Code\JAVA\JXGL&gt;java Text</span><br><span class="line">1</span><br></pre></td></tr></table></figure>
+
+<p>Win+R打开sqlcmd</p>
+<p><img src="https://i.loli.net/2021/04/10/i8JRLkDrbVoyUt3.png" alt="image-20210410002158057"></p>
+<h2 id="JDBC查询数据库"><a href="#JDBC查询数据库" class="headerlink" title="JDBC查询数据库"></a>JDBC查询数据库</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> java.sql.*;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Select</span> </span>&#123;</span><br><span class="line">    <span class="comment">/*</span></span><br><span class="line"><span class="comment">     * 一、得到Connection</span></span><br><span class="line"><span class="comment">     * 二、得到Statement</span></span><br><span class="line"><span class="comment">     * 三、对查询返回的“表格”进行解析</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String args[])</span> <span class="keyword">throws</span> ClassNotFoundException,SQLException </span>&#123;</span><br><span class="line">        <span class="comment">/*</span></span><br><span class="line"><span class="comment">         *一、得到Connection</span></span><br><span class="line"><span class="comment">         * 1.准备四大参数</span></span><br><span class="line"><span class="comment">         */</span></span><br><span class="line">        String driverClassName = <span class="string">&quot;com.microsoft.sqlserver.jdbc.SQLServerDriver&quot;</span>;<span class="comment">//JDBC协议的格式</span></span><br><span class="line">        String url = <span class="string">&quot;jdbc:sqlserver://localhost:1433;DatabaseName=JXGL&quot;</span>;</span><br><span class="line">        String username = <span class="string">&quot;sa&quot;</span>;</span><br><span class="line">        String password = <span class="string">&quot;123&quot;</span>;</span><br><span class="line"></span><br><span class="line">        <span class="comment">/*</span></span><br><span class="line"><span class="comment">         * 2.加载驱动类</span></span><br><span class="line"><span class="comment">         */</span></span><br><span class="line">        Class.forName(driverClassName);</span><br><span class="line"></span><br><span class="line">        <span class="comment">/*</span></span><br><span class="line"><span class="comment">         *3.通过剩下的三个参数调用DriverManager的getConnection(),得到Connection</span></span><br><span class="line"><span class="comment">         */</span></span><br><span class="line">        Connection con = DriverManager.getConnection(url,username,password);</span><br><span class="line"></span><br><span class="line">        <span class="comment">/*</span></span><br><span class="line"><span class="comment">         * 二、得到Statement，执行select语句</span></span><br><span class="line"><span class="comment">         * 1.调用Statement对象：Connection的createStatement()方法</span></span><br><span class="line"><span class="comment">         */</span></span><br><span class="line">        Statement stmt = con.createStatement();</span><br><span class="line"></span><br><span class="line">        <span class="comment">/*</span></span><br><span class="line"><span class="comment">         *2.调用Statement的ResultSet rs = executeQuery(String querySql)</span></span><br><span class="line"><span class="comment">         */</span></span><br><span class="line">        ResultSet rs = stmt.executeQuery(<span class="string">&quot;SELECT * FROM STU&quot;</span>);</span><br><span class="line"></span><br><span class="line">        <span class="comment">/*</span></span><br><span class="line"><span class="comment">         *三、解析ResultSet</span></span><br><span class="line"><span class="comment">         * 1.把光标移动到第一行，可以调用next()方法完成！</span></span><br><span class="line"><span class="comment">         */</span></span><br><span class="line">        <span class="keyword">while</span>(rs.next())&#123;   <span class="comment">//把光标向下一行移动，并判断下一行是否存在</span></span><br><span class="line">            String SNO = rs.getString(<span class="string">&quot;SNO&quot;</span>); <span class="comment">//通过列名称来获取该列的值</span></span><br><span class="line">            String SNAME = rs.getString(<span class="string">&quot;SNAME&quot;</span>); <span class="comment">//通过列名称来获取该列的值</span></span><br><span class="line">            <span class="keyword">int</span> AGE = rs.getInt(<span class="number">1</span>);<span class="comment">//通过列名称来获取该列的值</span></span><br><span class="line">            System.out.println(SNO+<span class="string">&quot;,&quot;</span>+SNAME+<span class="string">&quot;,&quot;</span>+AGE);</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="comment">/*</span></span><br><span class="line"><span class="comment">         * 四、关闭资源</span></span><br><span class="line"><span class="comment">         * 倒关，先用的后关，后用的先关</span></span><br><span class="line"><span class="comment">         */</span></span><br><span class="line">        rs.close();</span><br><span class="line">        stmt.close();</span><br><span class="line">        con.close();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://i.loli.net/2021/04/10/DBZ5K9iWb48Vjrk.png" alt="image-20210410002706935"></p>
+
+      
+    </div>
+    
+  </div>
+  
+    
+    <div class="copyright">
+        <p><span>本文标题:</span><a href="/2021/04/10/JDBC%E6%95%B0%E6%8D%AE%E5%BA%93%E5%BC%80%E5%8F%91/">JDBC数据库开发</a></p>
+        <p><span>文章作者:</span><a href="/" title="回到主页">SuPer</a></p>
+        <p><span>发布时间:</span>2021-04-10, 00:30:51</p>
+        <p><span>最后更新:</span>2021-04-10, 00:32:45</p>
+        <p>
+            <span>原始链接:</span><a class="post-url" href="/2021/04/10/JDBC%E6%95%B0%E6%8D%AE%E5%BA%93%E5%BC%80%E5%8F%91/" title="JDBC数据库开发">http://example.com/2021/04/10/JDBC%E6%95%B0%E6%8D%AE%E5%BA%93%E5%BC%80%E5%8F%91/</a>
+            <span class="copy-path" data-clipboard-text="原文: http://example.com/2021/04/10/JDBC%E6%95%B0%E6%8D%AE%E5%BA%93%E5%BC%80%E5%8F%91/　　作者: SuPer" title="点击复制文章链接"><i class="fa fa-clipboard"></i></span>
+            <script> var clipboard = new Clipboard('.copy-path'); </script>
+        </p>
+        <p>
+            <span>许可协议:</span><i class="fa fa-creative-commons"></i> <a rel="license noopener" target="_blank" href="http://creativecommons.org/licenses/by-nc-sa/4.0/" title="CC BY-NC-SA 4.0 International" target = "_blank">"署名-非商用-相同方式共享 4.0"</a> 转载请保留原文链接及作者。
+        </p>
+    </div>
+
+
+
+    <nav id="article-nav">
+        
+        
+            <div id="article-nav-older" class="article-nav-title">
+                <a href="/2021/04/06/%E7%B4%A2%E5%BC%95/">
+                    索引
+                </a>
+            </div>
+        
+    </nav>
+
+  
+</article>
+
+    <div id="toc" class="toc-article">
+        <strong class="toc-title">文章目录</strong>
+        
+            <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#JDBC%E8%BF%9E%E6%8E%A5SQL-Server"><span class="toc-number">1.</span> <span class="toc-text">JDBC连接SQL Server</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#JDBC%E8%BF%9B%E8%A1%8C%E5%A2%9E%E5%88%A0%E6%94%B9"><span class="toc-number">2.</span> <span class="toc-text">JDBC进行增删改</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%95%B0%E6%8D%AE%E5%BA%93%E8%BF%9B%E8%A1%8C%E5%A2%9E%E5%88%A0%E6%94%B9"><span class="toc-number">2.1.</span> <span class="toc-text">数据库进行增删改</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#JDBC%E6%9F%A5%E8%AF%A2%E6%95%B0%E6%8D%AE%E5%BA%93"><span class="toc-number">3.</span> <span class="toc-text">JDBC查询数据库</span></a></li></ol>
+        
+    </div>
+    <style>
+        .left-col .switch-btn,
+        .left-col .switch-area {
+            display: none;
+        }
+        .toc-level-6 i,
+        .toc-level-6 ol {
+            display: none !important;
+        }
+    </style>
+
+    <input type="button" id="tocButton" value="隐藏目录"  title="点击按钮隐藏或者显示文章目录">
+
+    <script>
+        yiliaConfig.toc = ["隐藏目录", "显示目录", !!"false"];
+    </script>
+
+
+
+
+
+    
+
+
+
+
+    <div class="scroll" id="post-nav-button">
+        
+            <a href="/" title="回到主页"><i class="fa fa-home"></i></a>
+        
+
+        <a title="文章列表"><i class="fa fa-bars"></i><i class="fa fa-times"></i></a>
+
+        
+            <a href="/2021/04/06/%E7%B4%A2%E5%BC%95/" title="下一篇: 索引">
+                <i class="fa fa-angle-right"></i>
+            </a>
+        
+    </div>
+
+    <ul class="post-list"><li class="post-list-item"><a class="post-list-link" href="/2021/04/10/JDBC%E6%95%B0%E6%8D%AE%E5%BA%93%E5%BC%80%E5%8F%91/">JDBC数据库开发</a></li><li class="post-list-item"><a class="post-list-link" href="/2021/04/06/%E7%B4%A2%E5%BC%95/">索引</a></li><li class="post-list-item"><a class="post-list-link" href="/2021/04/06/%E8%A7%86%E5%9B%BE/">视图</a></li><li class="post-list-item"><a class="post-list-link" href="/2021/04/06/%E6%95%B0%E6%8D%AE%E6%9F%A5%E8%AF%A2/">数据查询</a></li><li class="post-list-item"><a class="post-list-link" href="/2021/04/06/%E6%95%B0%E6%8D%AE%E5%BA%93%E4%B8%8E%E6%95%B0%E6%8D%AE%E8%A1%A8%E7%AE%A1%E7%90%86/">数据库与数据表管理</a></li><li class="post-list-item"><a class="post-list-link" href="/2021/04/06/%E6%96%B0%E7%9A%84%E7%AF%87%E7%AB%A0/">新的篇章</a></li></ul>
+
+
+
+
+    <script>
+        
+    </script>
+</div>
+      <footer id="footer">
+    <div class="outer">
+        <div id="footer-info">
+            <div class="footer-left">
+                <i class="fa fa-copyright"></i> 
+                2021 SuPer
+            </div>
+ 
+ 
+            <div class="footer-right">
+                <a href="http://hexo.io/" target="_blank" title="快速、简洁且高效的博客框架">Hexo</a>  Theme <a href="https://github.com/MOxFIVE/hexo-theme-yelee" target="_blank" title="简而不减 Hexo 双栏博客主题  v3.5">Yelee</a> by MOxFIVE <i class="fa fa-heart animated infinite pulse"></i>
+            </div>
+        </div>
+ 
+ 
+        
+ 
+ 
+            <div class="visit">
+                
+                    <span style='display:inline'>
+                        <span id="site-visit" title="本站到访数"><i class="fa fa-user" aria-hidden="true"></i>本站总访问量<span id="busuanzi_value_site_pv"></span>次
+                        </span>
+                    </span>
+                
+ 
+ 
+                
+                    <span>| </span>
+                
+ 
+ 
+                
+                    <span style='display:inline'>
+                        <span id="page-visit"  title="本页阅读量"><i class="fa fa-eye animated infinite pulse" aria-hidden="true"></i>本页面被访问<span id="busuanzi_value_page_pv"></span>次
+                        </span>
+                    </span>
+                
+ 
+                
+                    <span>| </span>
+                
+ 
+ 
+                
+                    <span style='display:inline'>
+                        <span id="page-visit"  title="本页阅读量"><i class="fa fa-user" aria-hidden="true">本站访客数</i><span id="busuanzi_value_site_uv"></span>人
+                        </span>
+                    </span>
+                
+ 
+                
+            </div>
+        
+    </div>
+</footer>
+    </div>
+    
+<script data-main="/js/main.js" src="//cdn.bootcss.com/require.js/2.2.0/require.min.js"></script>
+
+
+
+
+
+<div class="scroll" id="scroll">
+    <a href="#" title="返回顶部"><i class="fa fa-arrow-up"></i></a>
+    <a href="#comments" onclick="load$hide();" title="查看评论"><i class="fa fa-comments-o"></i></a>
+    <a href="#footer" title="转到底部"><i class="fa fa-arrow-down"></i></a>
+</div>
+<script>
+    // Open in New Window
+    
+        var oOpenInNew = {
+            
+            
+            
+            
+            
+            
+             archives: ".archive-article-title", 
+             miniArchives: "a.post-list-link", 
+            
+             friends: "#js-friends a", 
+             socail: ".social a" 
+        }
+        for (var x in oOpenInNew) {
+            $(oOpenInNew[x]).attr("target", "_blank");
+        }
+    
+</script>
+
+<script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js">
+</script>
+  </div>
+</body>
+</html>
