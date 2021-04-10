@@ -38,7 +38,7 @@
 <meta property="og:image" content="https://i.loli.net/2021/04/11/NE4hoiwnCrtdFB5.png">
 <meta property="og:image" content="https://i.loli.net/2021/04/11/ONiebHAwp6Qukzd.png">
 <meta property="article:published_time" content="2021-04-09T16:30:51.000Z">
-<meta property="article:modified_time" content="2021-04-10T16:26:36.225Z">
+<meta property="article:modified_time" content="2021-04-10T16:30:59.742Z">
 <meta property="article:author" content="SuPer">
 <meta property="article:tag" content="JDBC">
 <meta property="article:tag" content="SQL Server">
@@ -329,20 +329,21 @@
           
         <h2 id="JDBC简介"><a href="#JDBC简介" class="headerlink" title="JDBC简介"></a>JDBC简介</h2><p>JDBC指Java数据库连接，是一种标准Java应用编程接口（JAVA API），用来连接Java语言和广泛数据库。</p>
 <h2 id="JDBC对象介绍"><a href="#JDBC对象介绍" class="headerlink" title="JDBC对象介绍"></a>JDBC对象介绍</h2><ol>
-<li><p>Drivermanager</p>
+<li>Drivermanager</li>
+</ol>
 <ul>
-<li><p>注册驱动：Class.forName(driverClassName);</p>
-</li>
-<li><p>获取Connection</p>
-</li>
+<li>注册驱动：Class.forName(driverClassName);</li>
+<li>获取Connection</li>
 </ul>
-</li>
-<li><p>Connection</p>
+<ol start="2">
+<li>Connection</li>
+</ol>
 <ul>
 <li>最重要的方法是获取Statement</li>
 </ul>
-</li>
-<li><p>Statement</p>
+<ol start="3">
+<li>Statement</li>
+</ol>
 <p>Statement最为重要的方法是：</p>
 <ul>
 <li>int executeUpdate(String(sql))：执行更新操作，即执行insert,update,delete操作，也可以执行create table、alter table和drop table等操作</li>
@@ -350,8 +351,9 @@
 </ul>
 <p>如果使用execute()方法更新语句，可用int getUpdateCount()来获取insert,update,delete语句影响的行数</p>
 <p>如果使用execute()方法更新语句，可用ResultSet getResultSet()来获取select语句查询结果</p>
-</li>
-<li><p>ResultSet</p>
+<ol start="4">
+<li>ResultSet</li>
+</ol>
 <p>ResultSet表示结果集，它是一个二维的表格</p>
 <p>获取结果集元数据：</p>
 <ul>
@@ -359,8 +361,6 @@
 <li>获取结果集列数：int getColumnCount()</li>
 <li>获取指定列列名：String getColumnName(int colIndex)</li>
 </ul>
-</li>
-</ol>
 <h2 id="JDBC连接SQL-Server"><a href="#JDBC连接SQL-Server" class="headerlink" title="JDBC连接SQL Server"></a>JDBC连接SQL Server</h2><p>Ⅰ.官网下载Microsoft SQL Server JDBC 驱动程序 <a target="_blank" rel="noopener" href="https://docs.microsoft.com/zh-cn/sql/connect/jdbc/download-microsoft-jdbc-driver-for-sql-server?view=sql-server-2017%EF%BC%8C">https://docs.microsoft.com/zh-cn/sql/connect/jdbc/download-microsoft-jdbc-driver-for-sql-server?view=sql-server-2017，</a> (<strong>安装路径最好全英</strong>)</p>
 <p>Ⅱ.解压打开文件夹可以找到三个jar文件，找到相对应版本的jar包，复制路径</p>
 <p>Ⅲ.配置环境变量</p>
@@ -467,7 +467,7 @@
         <p><span>本文标题:</span><a href="/2021/04/10/JDBC%E6%95%B0%E6%8D%AE%E5%BA%93%E5%BC%80%E5%8F%91/">JDBC数据库开发</a></p>
         <p><span>文章作者:</span><a href="/" title="回到主页">SuPer</a></p>
         <p><span>发布时间:</span>2021-04-10, 00:30:51</p>
-        <p><span>最后更新:</span>2021-04-11, 00:26:36</p>
+        <p><span>最后更新:</span>2021-04-11, 00:30:59</p>
         <p>
             <span>原始链接:</span><a class="post-url" href="/2021/04/10/JDBC%E6%95%B0%E6%8D%AE%E5%BA%93%E5%BC%80%E5%8F%91/" title="JDBC数据库开发">http://example.com/2021/04/10/JDBC%E6%95%B0%E6%8D%AE%E5%BA%93%E5%BC%80%E5%8F%91/</a>
             <span class="copy-path" data-clipboard-text="原文: http://example.com/2021/04/10/JDBC%E6%95%B0%E6%8D%AE%E5%BA%93%E5%BC%80%E5%8F%91/　　作者: SuPer" title="点击复制文章链接"><i class="fa fa-clipboard"></i></span>
