@@ -4,14 +4,14 @@
 
     <url>
         <loc>http://example.com/tags/SQL-Server/</loc>
-        <lastmod>2021-04-10T16:30:59.742Z</lastmod>
+        <lastmod>2021-04-11T14:18:46.873Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.2</priority>
     </url>
 
     <url>
         <loc>http://example.com/tags/JDBC/</loc>
-        <lastmod>2021-04-10T16:30:59.742Z</lastmod>
+        <lastmod>2021-04-11T14:18:46.873Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.2</priority>
     </url>
